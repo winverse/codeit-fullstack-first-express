@@ -4,9 +4,9 @@ import { logger } from './middlewares/logger.js';
 import { requestTimer } from './middlewares/requestTImer.js';
 import { cors } from './middlewares/cors.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { config, isDevelopment } from './config/config.js';
 
 const app = express();
-const PORT = 5001;
 
 // JSON 파싱 미들웨어
 app.use(express.json());
@@ -16,8 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors);
 
 // 범용 미들웨어
-app.use(logger);
-app.use(requestTimer);
+if (isDevelopment()) {
+  app.use(logger);
+  app.use(requestTimer);
+}
 
 // 모든 라우트 등록
 app.use('/', router);
@@ -29,6 +31,6 @@ app.use(express.static('public'));
 app.use(errorHandler);
 
 // 서버 시작
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${config.PORT}`);
 });
