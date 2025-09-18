@@ -10,11 +10,11 @@
     "format:check": "prettier --check src/**/*.js"
   },
   "keywords": [
-    "todo api"
+    "express-crud"
   ],
   "author": {
-    "name": "winverse",
-    "email": "public.winverse@gamil.com"
+    "name": "your-name",
+    "email": "your-email@hello.com"
   },
   "engines": {
     "node": "^22.14.0",
