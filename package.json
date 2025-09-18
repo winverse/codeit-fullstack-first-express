@@ -4,17 +4,17 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --watch src/server.js",
+    "dev": "NODE_ENV=development nodemon src/server.js",
     "start": "node dist/server.js",
     "format": "prettier --write src/**/*.js",
     "format:check": "prettier --check src/**/*.js"
   },
   "keywords": [
-    "todo api"
+    "express-crud"
   ],
   "author": {
-    "name": "winverse",
-    "email": "public.winverse@gamil.com"
+    "name": "your-name",
+    "email": "your-email@hello.com"
   },
   "engines": {
     "node": "^22.14.0",

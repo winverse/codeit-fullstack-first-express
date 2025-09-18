@@ -1,4 +1,5 @@
 import express from 'express';
+import { validateUser } from '../middlewares/validateUser.js';
 
 export const userRouter = express.Router();
 
@@ -22,8 +23,8 @@ const users = [
 
 let nextId = 16;
 
-// GET /api/v1/users - 모든 사용자 조회
-userRouter.get('/users', (req, res) => {
+// GET /users - 모든 사용자 조회
+userRouter.get('/', (req, res) => {
   res.json({
     success: true,
     data: users,
@@ -31,8 +32,8 @@ userRouter.get('/users', (req, res) => {
   });
 });
 
-// GET /api/v1/users/:id - 특정 사용자 조회
-userRouter.get('/users/:id', (req, res) => {
+// GET /users/:id - 특정 사용자 조회
+userRouter.get('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const user = users.find((u) => u.id === id);
 
@@ -49,8 +50,8 @@ userRouter.get('/users/:id', (req, res) => {
   });
 });
 
-// POST /api/v1/users - 새 사용자 생성
-userRouter.post('/users', (req, res) => {
+// POST /users - 새 사용자 생성
+userRouter.post('/', validateUser, (req, res) => {
   const { name, email } = req.body;
 
   if (!name || !email) {
@@ -75,8 +76,8 @@ userRouter.post('/users', (req, res) => {
   });
 });
 
-// PUT /api/v1/users/:id - 사용자 정보 업데이트
-userRouter.patch('/users/:id', (req, res) => {
+// PUT /users/:id - 사용자 정보 업데이트
+userRouter.patch('/:id', validateUser, (req, res) => {
   const id = parseInt(req.params.id);
   const { name, email } = req.body;
 
@@ -98,8 +99,8 @@ userRouter.patch('/users/:id', (req, res) => {
   });
 });
 
-// DELETE /api/v1/users/:id - 사용자 삭제
-userRouter.delete('/users/:id', (req, res) => {
+// DELETE /users/:id - 사용자 삭제
+userRouter.delete('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const userIndex = users.findIndex((u) => u.id === id);
 
@@ -118,7 +119,7 @@ userRouter.delete('/users/:id', (req, res) => {
   });
 });
 
-// GET /api/v1/users/:userId/posts/:postId - 중첩 리소스
+// GET /users/:userId/posts/:postId - 중첩 리소스
 userRouter.get('/:userId/posts/:postId', (req, res) => {
   const { userId, postId } = req.params;
   res.json({ userId, postId });
