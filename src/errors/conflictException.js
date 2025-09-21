@@ -1,6 +1,6 @@
 import { HttpException } from './httpException.js';
 
-export class ConfilctException extends HttpException {
+export class ConflictException extends HttpException {
   constructor(description = 'CONFILCT') {
     super(description, 409);
   }

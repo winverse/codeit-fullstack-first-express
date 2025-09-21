@@ -5,8 +5,10 @@ import { requestTimer } from './middlewares/requestTImer.js';
 import { cors } from './middlewares/cors.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { config, isDevelopment } from './config/config.js';
+import { connectDB, disconnectDB } from './db/index.js';
 
 const app = express();
+connectDB();
 
 // JSON 파싱 미들웨어
 app.use(express.json());
@@ -16,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors);
 
 // 범용 미들웨어
-if (isDevelopment()) {
+if (isDevelopment) {
   app.use(logger);
   app.use(requestTimer);
 }
@@ -31,6 +33,19 @@ app.use(express.static('public'));
 app.use(errorHandler);
 
 // 서버 시작
-app.listen(config.PORT, () => {
+const server = app.listen(config.PORT, () => {
   console.log(`🚀 Server running on http://localhost:${config.PORT}`);
 });
+
+// Graceful Shutdown 핸들링
+const shutdown = (signal) => {
+  console.log(`\n${signal} received. Shutting down gracefully...`);
+  server.close(async () => {
+    console.log('HTTP server closed.');
+    await disconnectDB();
+  });
+};
+
+// 3. SIGINT, SIGTERM 신호를 감지하여 shutdown 함수를 실행합니다.
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
