@@ -21,7 +21,11 @@ userRouter.get('/', async (req, res, next) => {
 userRouter.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) throw new NotFoundException('사용자를 찾을 수 없습니다.');
+
+    if (!user) {
+      throw new NotFoundException('사용자를 찾을 수 없습니다.');
+    }
+
     res.json({ success: true, data: user });
   } catch (error) {
     next(error);
@@ -43,6 +47,7 @@ userRouter.post('/', validateUser, async (req, res, next) => {
 
     const newUser = new User({ name, email });
     await newUser.save();
+
     res.status(201).json({
       success: true,
       data: newUser,
