@@ -8,13 +8,13 @@ import { config, isDevelopment } from './config/config.js';
 import { connectDB, disconnectDB } from './db/index.js';
 
 const app = express();
-connectDB();
+await connectDB();
 
 // JSON 파싱 미들웨어
 app.use(express.json());
 // URL 인코딩 파싱
 app.use(express.urlencoded({ extended: true }));
-// cors
+// cors 미들웨어
 app.use(cors);
 
 // 범용 미들웨어
