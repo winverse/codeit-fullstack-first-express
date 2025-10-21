@@ -15,14 +15,11 @@ export const cors = (req, res, next) => {
     'Access-Control-Allow-Methods',
     'GET, POST, PUT, PATCH, DELETE, OPTIONS',
   );
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Authorization',
-  );
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
 
   if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
+    return res.sendStatus(200);  
   }
 
   next();

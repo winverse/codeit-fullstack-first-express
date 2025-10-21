@@ -23,11 +23,11 @@ if (isDevelopment) {
   app.use(requestTimer);
 }
 
-// 모든 라우트 등록
-app.use('/', router);
-
 // 정적 파일 제공
 app.use(express.static('public'));
+
+// 모든 라우트 등록
+app.use('/', router);
 
 // 에러 핸들링
 app.use(errorHandler);
