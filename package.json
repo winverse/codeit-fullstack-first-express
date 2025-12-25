@@ -17,8 +17,8 @@
     "email": "your-email@hello.com"
   },
   "engines": {
-    "node": "^22.14.0",
-    "npm": "^10.9.2"
+    "node": "^24.11.0",
+    "npm": "^11.6.2"
   },
   "license": "MIT",
   "description": "",
