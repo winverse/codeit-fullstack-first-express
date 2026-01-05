@@ -1,6 +1,8 @@
+import { isProduction } from '../config/config';
+
 export const cors = (req, res, next) => {
 const origin = req.headers.origin;
-  const isProduction = process.env.NODE_ENV === 'production';
+  
   
 	const whiteList = [
     'https://your-production-site.com',

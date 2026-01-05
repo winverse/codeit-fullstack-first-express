@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-// 옛날 mongoose 버전, 지금은 자동 지원
+// 옛날 mongoose 버전, 최신은 자동 지원
 //  virtual 'id' 필드: _id 값을 id로 사용,
 // userSchema.virtual('id').get(function () {
 //   return this._id.toHexString();
