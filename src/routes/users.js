@@ -59,7 +59,7 @@ userRouter.post('/', validateUser, async (req, res, next) => {
   }
 });
 
-// PUT /users/:id - 사용자 정보 업데이트
+// PATCH /users/:id - 사용자 정보 업데이트
 userRouter.patch('/:id', validateUser, async (req, res, next) => {
   try {
     const { name, email } = req.body;
